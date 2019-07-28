@@ -29,6 +29,6 @@ import { MessageModule } from './messages/message.module';
     WelcomeComponent,
     PageNotFoundComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }
