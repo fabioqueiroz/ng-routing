@@ -15,6 +15,7 @@ import { ProductModule } from './products/product.module';
 import { UserModule } from './user/user.module';
 import { MessageModule } from './messages/message.module';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
@@ -22,13 +23,14 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
     ProductModule,
-    RouterModule.forRoot([
-      { path: 'welcome', component: WelcomeComponent},
-      { path: '', redirectTo: 'welcome', pathMatch:'full'},
-      { path: '**', component: PageNotFoundComponent}
-    ]),
+    // RouterModule.forRoot([
+    //   { path: 'welcome', component: WelcomeComponent},
+    //   { path: '', redirectTo: 'welcome', pathMatch:'full'},
+    //   { path: '**', component: PageNotFoundComponent}
+    // ]),
     UserModule,
-    MessageModule
+    MessageModule,
+    AppRoutingModule // must be the last one to be declared
   ],
   declarations: [
     AppComponent,

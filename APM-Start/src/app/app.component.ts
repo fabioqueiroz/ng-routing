@@ -11,20 +11,20 @@ export class AppComponent {
   pageTitle = 'Acme Product Management';
 
   get isLoggedIn(): boolean {
-    return this.authService.isLoggedIn;
+    return this._authService.isLoggedIn;
   }
 
   get userName(): string {
-    if (this.authService.currentUser) {
-      return this.authService.currentUser.userName;
+    if (this._authService.currentUser) {
+      return this._authService.currentUser.userName;
     }
     return '';
   }
 
-  constructor(private authService: AuthService) { }
+  constructor(private _authService: AuthService) { }
 
   logOut(): void {
-    this.authService.logout();
+    this._authService.logout();
     console.log('Log out');
   }
 }
