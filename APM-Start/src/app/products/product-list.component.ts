@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './product-list.component.html',
@@ -13,6 +14,8 @@ export class ProductListComponent implements OnInit {
   imageMargin = 2;
   showImage = false;
   errorMessage = '';
+  filteredProducts: Product[] = [];
+  products: Product[] = [];
 
   _listFilter = '';
   get listFilter(): string {
@@ -23,13 +26,14 @@ export class ProductListComponent implements OnInit {
     this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
   }
 
-  filteredProducts: Product[] = [];
-  products: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private _productService: ProductService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(
+    this.listFilter = this._route.snapshot.queryParamMap.get('filterBy') || '';
+    this.showImage = this._route.snapshot.queryParamMap.get('showImage') === 'true';
+
+    this._productService.getProducts().subscribe(
       products => {
         this.products = products;
         this.filteredProducts = this.performFilter(this.listFilter);

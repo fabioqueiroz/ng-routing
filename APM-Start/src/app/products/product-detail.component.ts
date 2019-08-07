@@ -13,10 +13,10 @@ export class ProductDetailComponent implements OnInit{
   product: Product;
   errorMessage: string;
   
-  constructor(private _productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private _productService: ProductService, private _route: ActivatedRoute) { }
   
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = +this._route.snapshot.paramMap.get('id');
     this.getProduct(id);
   }
 
