@@ -12,9 +12,13 @@ export class ProductEditInfoComponent implements OnInit {
 
   errorMessage: string;
   product = { id: 1, productName: 'test', productCode: 'test' };
+  // product: Product;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // this._route.parent.data.subscribe(data => {
+    //   this.product = data['resolvedData'].parent;
+    // });
   }
 }
