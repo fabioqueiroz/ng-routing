@@ -16,7 +16,7 @@ export class ProductDetailComponent implements OnInit{
   constructor(private _productService: ProductService, private _route: ActivatedRoute) { }
   
   ngOnInit(): void {
-    // using the rout resolver
+    // using the route resolver
     const resolvedData: ProductResolved = this._route.snapshot.data['resolvedData'];
     this.errorMessage = resolvedData.error;
     this.onProductRetrieved(resolvedData.product);
