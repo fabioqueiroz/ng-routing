@@ -17,7 +17,9 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
       { path: 'products',// component:ProductListComponent, // commented out to be replaced by a component-less route
         children: [
           // component-less route
-          { path: '', component: ProductListComponent},
+          { path: '', 
+            component: ProductListComponent
+          },
           { path: ':id', component:ProductDetailComponent, 
             resolve: {resolvedData: ProductResolver 
           }},
