@@ -30,7 +30,7 @@
     </li>
   </ul>
 </nav>
-<div class="container">
+<div class="container" [@slideInAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
   <!-- <pm-home></pm-home> -->
-  <router-outlet></router-outlet>  
+  <router-outlet #outlet="outlet"></router-outlet>  
 </div>
