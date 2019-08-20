@@ -19,7 +19,7 @@
       <a class="nav-link">Welcome {{ userName }}</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link">Show Messages</a>
+      <a class="nav-link" [routerLink]="[{ outlets: { popup: ['messages'] }}]">Show Messages</a>
     </li>
     <li class="nav-item"
         *ngIf="!isLoggedIn">
@@ -32,7 +32,15 @@
     </li>
   </ul>
 </nav>
-<div class="container" [@slideInAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
-  <!-- <pm-home></pm-home> -->
-  <router-outlet #outlet="outlet"></router-outlet>  
+<div class="container">
+  <div class="row">
+    <div class="col-md-10" [@slideInAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
+      <!-- <pm-home></pm-home> -->
+      <router-outlet #outlet="outlet"></router-outlet>  
+    </div>
+
+    <div class="col-md-2">
+      <router-outlet name="popup"></router-outlet>
+    </div>
+  </div>
 </div>
