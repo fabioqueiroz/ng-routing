@@ -11,13 +11,15 @@ import { MessageService } from './message.service';
 })
 export class MessageComponent {
   get messages() {
-    return this.messageService.messages;
+    return this._messageService.messages;
   }
 
-  constructor(private messageService: MessageService,
-              private router: Router) { }
+  constructor(private _messageService: MessageService,
+              private _router: Router) { }
 
   close(): void {
     // Close the popup.
+    this._router.navigate([{ outlets: { popup: null }}]);
+    this,this._messageService.isDisplayed = false;
   }
 }
