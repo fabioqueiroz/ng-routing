@@ -19,8 +19,13 @@ export class LoginComponent {
       const password = loginForm.form.value.password;
       this._authService.login(userName, password);
 
-      // Navigate to the Product List page after log in.
-      this._router.navigate(['/products']);
+      if (this._authService.redirectUrl) {
+        this._router.navigateByUrl(this._authService.redirectUrl);
+        
+      } else {        
+        // Navigate to the Product List page after log in.
+        this._router.navigate(['/products']);
+      }
 
     } else {
       this.errorMessage = 'Please enter a user name and password.';
