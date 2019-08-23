@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { ProductEditInfoComponent } from './product-edit/product-edit-info.component';
 import { ProductEditTagsComponent } from './product-edit/product-edit-tags.component';
 import { AuthGuard } from '../user/auth.guard';
+import { ProductEditGuard } from './product-edit/product-edit.guard';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { AuthGuard } from '../user/auth.guard';
           }},
           { path: ':id/edit', 
             component:ProductEditComponent, 
+            canDeactivate: [ProductEditGuard],
             resolve: {resolvedData: ProductResolver },
             children: [
               { path: '', redirectTo: 'info', pathMatch: 'full'},

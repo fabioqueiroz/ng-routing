@@ -11,10 +11,29 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./product-edit.component.css']
 })
 export class ProductEditComponent implements OnInit {
+
   pageTitle = 'Product Edit';
   errorMessage: string;
-  product: Product;
-  private dataIsValid: { [key: string]: boolean } = {};
+  // product: Product;
+
+  private _dataIsValid: { [key: string]: boolean } = {};
+  private _currentProduct: Product;
+  private _originalProduct: Product;
+
+  get product(): Product {
+    return this._currentProduct;
+  }
+
+  set product(value: Product) {
+    this._currentProduct = value;
+
+    // Clone the object to retain a copy
+    this._originalProduct = {...value};
+  }
+
+  get isDirty() : boolean {
+    return JSON.stringify(this._originalProduct) !== JSON.stringify(this._currentProduct);
+  }
 
   constructor(private _productService: ProductService,
               private _messageService: MessageService,
@@ -80,10 +99,16 @@ export class ProductEditComponent implements OnInit {
     this.validate();
 
     if (path) {
-      return this.dataIsValid['path'];
+      return this._dataIsValid['path'];
     }
 
-    return (this.dataIsValid && Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
+    return (this._dataIsValid && Object.keys(this._dataIsValid).every(d => this._dataIsValid[d] === true));
+  }
+
+  reset() {
+    this._dataIsValid = null;
+    this._currentProduct = null;
+    this._originalProduct = null;
   }
 
   saveProduct(): void {
@@ -111,28 +136,30 @@ export class ProductEditComponent implements OnInit {
       this._messageService.addMessage(message);
     }
 
+    this.reset();
+    
     // Navigate back to the product list
     this._router.navigate(['/products']);
   }
 
   validate(): void {
     // Clear the validation object
-    this.dataIsValid = {};
+    this._dataIsValid = {};
 
     // 'info' tab
     if (this.product.productName && this.product.productName.length >= 3 && this.product.productCode) {
-      this.dataIsValid['info'] = true;
+      this._dataIsValid['info'] = true;
 
     } else {
-      this.dataIsValid['info'] = false;
+      this._dataIsValid['info'] = false;
     }
 
     // 'tags' tab
     if (this.product.category && this.product.category.length >= 3) {
-      this.dataIsValid['tags'] = true;
+      this._dataIsValid['tags'] = true;
 
     } else {
-      this.dataIsValid['tags'] = false;
+      this._dataIsValid['tags'] = false;
     }
   } 
 }

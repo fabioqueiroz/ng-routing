@@ -12,7 +12,11 @@ export class ProductEditGuard implements CanDeactivate<ProductEditComponent> {
                 currentRoute: ActivatedRouteSnapshot, 
                 currentState: RouterStateSnapshot, 
                 nextState?: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    throw new Error("Method not implemented.");
-  }
-  
+    
+      if (component.isDirty) {
+        const productName = component.product.productName || 'New Product';
+        return confirm(`Exit and lose all changes to ${productName}?`);
+      }
+      return true;
+  }  
 }
