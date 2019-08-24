@@ -16,28 +16,49 @@ import { ProductEditGuard } from './product-edit/product-edit.guard';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'products',// component:ProductListComponent, // commented out to be replaced by a component-less route
-        canActivate: [AuthGuard],
-        children: [
-          // component-less route
-          { path: '', 
-            component: ProductListComponent
-          },
-          { path: ':id', component:ProductDetailComponent, 
-            resolve: {resolvedData: ProductResolver 
-          }},
-          { path: ':id/edit', 
-            component:ProductEditComponent, 
-            canDeactivate: [ProductEditGuard],
-            resolve: {resolvedData: ProductResolver },
-            children: [
-              { path: '', redirectTo: 'info', pathMatch: 'full'},
-              { path: 'info', component: ProductEditInfoComponent},
-              { path: 'tags', component: ProductEditTagsComponent}
-            ]
-          }
-        ]
-      },
+      // **** Before lazy loading ****
+      // { path: 'products',// component:ProductListComponent, // commented out to be replaced by a component-less route
+      //   canActivate: [AuthGuard],
+      //   children: [
+      //     // component-less route
+      //     { path: '', 
+      //       component: ProductListComponent
+      //     },
+      //     { path: ':id', component:ProductDetailComponent, 
+      //       resolve: {resolvedData: ProductResolver 
+      //     }},
+      //     { path: ':id/edit', 
+      //       component:ProductEditComponent, 
+      //       canDeactivate: [ProductEditGuard],
+      //       resolve: {resolvedData: ProductResolver },
+      //       children: [
+      //         { path: '', redirectTo: 'info', pathMatch: 'full'},
+      //         { path: 'info', component: ProductEditInfoComponent},
+      //         { path: 'tags', component: ProductEditTagsComponent}
+      //       ]
+      //     }
+      //   ]
+      // },
+    
+    // **** Rearranged for lazy loading ****
+    // component-less route
+    { path: '', 
+      component: ProductListComponent
+    },
+    { path: ':id', component:ProductDetailComponent, 
+      resolve: {resolvedData: ProductResolver 
+    }},
+    { path: ':id/edit', 
+      component:ProductEditComponent, 
+      canDeactivate: [ProductEditGuard],
+      resolve: {resolvedData: ProductResolver },
+      children: [
+        { path: '', redirectTo: 'info', pathMatch: 'full'},
+        { path: 'info', component: ProductEditInfoComponent},
+        { path: 'tags', component: ProductEditTagsComponent}
+      ]
+    }
+
     ])
   ],
   declarations: [

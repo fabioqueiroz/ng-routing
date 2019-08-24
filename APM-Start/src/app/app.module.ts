@@ -25,8 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
-    ProductModule,
-    // RouterModule.forRoot([
+    // ProductModule, // **** Commented out for lazy loading ****
+    // RouterModule.forRoot([ // **** Moved to the AppRoutingModule ****
     //   { path: 'welcome', component: WelcomeComponent},
     //   { path: '', redirectTo: 'welcome', pathMatch:'full'},
     //   { path: '**', component: PageNotFoundComponent}
