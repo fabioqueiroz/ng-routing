@@ -14,7 +14,8 @@ import { AuthGuard } from './user/auth.guard';
             { path: 'products',
               canActivate: [AuthGuard],
               // loadChildren: () => import('./products/product.module').then(m => m.ProductModule), // not working with "module": "esnext"
-              loadChildren: './products/product.module#ProductModule'
+              // loadChildren: './products/product.module#ProductModule' // working
+              loadChildren: () => ProductModule
             },
             { path: '', redirectTo: 'welcome', pathMatch:'full'},
             { path: '**', component: PageNotFoundComponent}
